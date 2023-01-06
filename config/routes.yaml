@@ -1,3 +1,23 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+   path: /{_locale}
+   controller: App\Controller\DefaultController::index
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
+contact:
+   path: /{_locale}/contact
+   controller: App\Controller\DefaultController::contact
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
+boutique:
+   path: /{_locale}/boutique
+   controller: App\Controller\BoutiqueController::boutique
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
