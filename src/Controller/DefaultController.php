@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,6 +26,16 @@ class DefaultController extends AbstractController
     {
         return $this->render('default/contact.html.twig', [
             'controller_name' => 'DefaultController',
+        ]);
+    }
+
+    public function navBar(PanierService $panier): Response
+    {
+        $nbProduit = $panier->getNbProduits();
+
+        return $this->render('navbarproduit.html.twig', [
+            'controller_name' => 'DefaultController',
+            'nbProduit' => $nbProduit,
         ]);
     }
 }

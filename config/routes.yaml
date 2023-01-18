@@ -21,3 +21,59 @@ boutique:
       _locale: '%app.supported_locales%'
    defaults:
       _locale: fr
+
+rayon:
+   path: /{_locale}/rayon/{idCategorie}
+   controller: App\Controller\BoutiqueController::rayon
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
+ajouterProduit: 
+   path: /{_locale}/ajouterProduit/?{idProduit}
+   controller: App\Controller\BoutiqueController::ajouterProduit
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
+panier_index: 
+   path: /{_locale}/panier
+   controller: App\Controller\PanierController::index
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
+panier_ajouter:
+   path: /{_locale}/panier/ajouter/{idProduit}/{quantite}
+   controller: App\Controller\PanierController::ajouter
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
+panier_enlever:
+   path: /{_locale}/panier/enlever/{idProduit}/{quantite}
+   controller: App\Controller\PanierController::enlever
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
+panier_supprimer:
+   path: /{_locale}/panier/supprimer/{idProduit}
+   controller: App\Controller\PanierController::supprimer
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
+panier_vider:
+   path: /{_locale}/panier/vider
+   controller: App\Controller\PanierController::vider
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr

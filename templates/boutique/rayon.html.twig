@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shop projet | Rayon{% endblock %}
+
+{% block body %}
+<div class="w-screen">
+    <div class="p-5 bg-gray-100">
+        <h2 class="text-center">Nombre de produit(s) "{{categorie.libelle}}" : {{nbProduits}}</h2>
+    </div>
+    <div class="flex justify-center mt-10">
+        {% for produit in produits %}
+            <div class="card w-60 bg-base-100 border-2 border-gray-100 shadow-xl m-10 p-3 transform transition duration-75 hover:scale-110">
+                <figure><img class="w-24" src="{{asset(produit.visuel)}}" alt="" /></figure>
+                <div class="card-body">
+                    <h2 class="card-title mb-3 pb-5 border-b-2 border-gray-200">{{produit.libelle}}</h2>
+                    <p class="">{{produit.texte}}</p>
+                    <p class="mb-3"><strong>Prix :</strong> {{produit.prix}}€</p>
+                    <div class="card-actions justify-center">
+                        <a href="{{path('panier_ajouter', {'idProduit' : produit.id, 'quantite' : 1})}}" class="button bg-gray-700 hover:bg-gray-800 hover:cursor-pointer py-3 px-3 text-white rounded">Ajouter au panier</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
