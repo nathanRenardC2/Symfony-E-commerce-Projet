@@ -2,23 +2,31 @@
 
 // src/Service/PanierService.php
 namespace App\Service;
+
+use App\Entity\Commande;
+use App\Entity\LigneCommande;
+use App\Entity\Usager;
+use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use App\Service\BoutiqueService;
+use Doctrine\ORM\EntityManagerInterface;
+
 // Service pour manipuler le panier et le stocker en session
 class PanierService {
     ////////////////////////////////////////////////////////////////////////////
     const PANIER_SESSION = 'panier'; // Le nom de la variable de session du panier
     private $session;  // Le service Session
-    private $boutique; // Le service Boutique
+    private $prodRepo; // Produit Repository
     private $panier;   // Tableau associatif idProduit => quantite
 	                     //  donc $this->panier[$i] = quantite du produit dont l'id est $i
+    private $entityManager;
     // constructeur du service
-    public function __construct(SessionInterface $session, BoutiqueService $boutique) {
+    public function __construct(SessionInterface $session, ProduitRepository $prodRepo, EntityManagerInterface $entityManager) {
         // Récupération des services session et BoutiqueService
-        $this->boutique = $boutique;
+        $this->prodRepo = $prodRepo;
         $this->session  = $session;
         // Récupération du panier en session s'il existe, init. à vide sinon
         $this->panier =  $this->panier = $this->session->has(self::PANIER_SESSION) ? $this->session->get(self::PANIER_SESSION) : [];
+        $this->entityManager = $entityManager;
     }
     // getContenu renvoie le contenu du panier
     //  tableau d'éléments [ "produit" => un produit, "quantite" => quantite ]
@@ -32,8 +40,8 @@ class PanierService {
         foreach ($contenu as $element) {
             $idProduit = $element["idProduit"];
             $quantite = $element["quantite"];
-            $produit = $this->boutique->findProduitById($idProduit);
-            $total += $produit->prix * $quantite;
+            $produit = $this->prodRepo->find($idProduit);
+            $total += $produit->getPrix() * $quantite;
         }
         return $total;
     }
@@ -88,4 +96,34 @@ class PanierService {
     public function vider() { 
         $this->session->remove(self::PANIER_SESSION);
     }
+
+    public function panierToCommande(Usager $usager){
+        $contenu = $this->getContenu();
+        if (count($contenu) != 0) {
+            $commande = new Commande();
+            $commande->setUsager($usager);
+            $date = new \DateTime();
+            $commande->setDateCommande($date->format('d M Y H:i:s'));
+            $commande->setStatut("En attente de validation");
+            $this->entityManager->persist($commande);
+    
+            foreach ($contenu as $element){
+                $ligneCommande = new LigneCommande();
+                $produit = $this->prodRepo->find($element["idProduit"]);
+                $ligneCommande->setCommande($commande);
+                $ligneCommande->setProduit($produit);
+                $ligneCommande->setQuantite($element["quantite"]);
+                $ligneCommande->setPrix($produit->getPrix());
+                $this->entityManager->persist($ligneCommande);
+            }
+    
+            $this->entityManager->flush();
+            $this->vider();
+    
+            return $commande;
+        }
+
+        return null;
+    }
+
 }

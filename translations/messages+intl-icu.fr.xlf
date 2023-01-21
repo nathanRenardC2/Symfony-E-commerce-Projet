@@ -23,11 +23,11 @@
       </trans-unit>
       <trans-unit id="rSMiX4_" resname="default.index.connexion">
         <source>default.index.connexion</source>
-        <target>Connexion</target>
+        <target>Inscription / Connexion</target>
       </trans-unit>
       <trans-unit id="jm6yIjV" resname="default.index.profil">
         <source>default.index.profil</source>
-        <target>Profil</target>
+        <target>Mon Compte</target>
       </trans-unit>
       <trans-unit id="H5TerVE" resname="default.index.commandes">
         <source>default.index.commandes</source>

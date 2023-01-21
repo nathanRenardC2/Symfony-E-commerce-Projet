@@ -10,6 +10,17 @@
 
 <div class="w-screen flex flex-col items-center justify-center">
         <div class="overflow-x-auto h-screen w-full">
+            <div class="flex justify-between items-center bg-gray-200 p-4">
+                <div class="badge p-5 ml-10 font-semibold">Total : {{total}}€</div>
+                <div>
+                    <a href='{{path('panier_vider')}}' class="btn mr-10">Vider</a>
+                    {% if listeProduit|length > 0 %}
+                        <a href='{{path('panier_validation')}}' class="btn mr-10">Commander</a>
+                    {% else %}
+                        <a href='{{path('panier_validation')}}' class="btn mr-10" disabled>Commander</a>
+                    {% endif %}
+                </div>
+            </div>
             <table class="table w-full">
                 <!-- head -->
                 <thead>
@@ -26,7 +37,7 @@
                 {% for row in listeProduit %}
                     <tr>
                         <td>
-                            <a class="text-blue-600 hover:text-blue-800" href="{{path('rayon', {'idCategorie' : row.produit.idCategorie})}}">{{row.produit.libelle}}</a>
+                            <a class="text-blue-600 hover:text-blue-800" href="{{path('rayon', {'idCategorie' : row.produit.categorie.id})}}">{{row.produit.libelle}}</a>
                         </td>
                         <td>{{row.produit.prix}}</td>
                         <td class="flex items-center">
@@ -46,10 +57,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <div class="flex justify-between items-center mt-5">
-                <div class="badge p-5 mt-5 ml-10 font-semibold">Total : {{total}}€</div>
-                <a href='{{path('panier_vider')}}' class="btn mr-10">Vider</a>
-            </div>
             {% for message in app.flashes('success') %}
                 <div class="flex justify-center mt-8">
                     <div class="w-1/2 alert alert-success shadow-lg">

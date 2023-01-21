@@ -40,9 +40,9 @@
               </svg>
             </label>
             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-              <li><a class="text-black">{% trans %} default.index.connexion {% endtrans %}</a></li>
-              <li><a class="text-black">{% trans %} default.index.profil {% endtrans %}</a></li>
-              <li><a class="text-black">{% trans %} default.index.commandes {% endtrans %}</a></li>
+              <li><a href="{{ path('usager_inscription') }}" class="text-black">{% trans %} default.index.connexion {% endtrans %}</a></li>
+              <li><a href="{{ path('usager_accueil') }}" class="text-black">{% trans %} default.index.profil {% endtrans %}</a></li>
+              <li><a href="{{ path('panier_validation') }}" class="text-black">{% trans %} default.index.commandes {% endtrans %}</a></li>
               <li><a class="text-black">{% trans %} default.index.deconnexion {% endtrans %}</a></li>
             </ul>
           </div>

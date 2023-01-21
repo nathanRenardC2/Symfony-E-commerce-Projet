@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\CategorieRepository;
+use App\Repository\ProduitRepository;
 use App\Service\BoutiqueService;
 use App\Service\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,9 +15,15 @@ class BoutiqueController extends AbstractController
     /**
      * @Route("/boutique", name="app_boutique")
      */
-    public function boutique(BoutiqueService $boutique): Response
+    public function boutique(CategorieRepository $catRepo): Response
     {
-        $categories = $boutique->findAllCategories();
+        $categories = $catRepo->findAll();
+
+        if(!$categories)
+        {
+            throw $this->createNotFoundException("La boutique n'existe pas");
+        }
+
         return $this->render('boutique/boutique.html.twig', 
         [
             'controller_name' => 'BoutiqueController',
@@ -23,10 +31,17 @@ class BoutiqueController extends AbstractController
         ]);
     }
 
-    public function rayon(BoutiqueService $boutique, int $idCategorie): Response
+    public function rayon(CategorieRepository $catRepo, int $idCategorie): Response
     {
-        $produits = $boutique->findProduitsByCategorie($idCategorie);
-        $categorie = $boutique->findCategorieById($idCategorie);
+        $categorie = $catRepo->find($idCategorie);
+
+        if(!$categorie)
+        {
+            throw $this->createNotFoundException("La catégorie n'existe pas");
+        }
+
+
+        $produits = $categorie->getProduits();
         $nbProduits = sizeOf($produits);
         return $this->render('boutique/rayon.html.twig', 
         [

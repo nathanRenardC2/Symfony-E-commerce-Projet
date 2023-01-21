@@ -77,3 +77,27 @@ panier_vider:
       _locale: '%app.supported_locales%'
    defaults:
       _locale: fr
+
+usager_accueil:
+   path: /{_locale}/usager
+   controller: App\Controller\UsagerController::index
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
+usager_inscription:
+   path: /{_locale}/usager/inscription
+   controller: App\Controller\UsagerController::new
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
+panier_validation:
+   path: /{_locale}/panier/validation
+   controller: App\Controller\PanierController::validation
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
