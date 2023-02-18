@@ -39,6 +39,18 @@ class ProduitRepository extends ServiceEntityRepository
         }
     }
 
+    public function rechercheProduit(string $recherche): array
+    {
+        // On récupère les produits correspondant à la recherche
+        $produits = $this->createQueryBuilder('p')
+            ->andWhere('p.libelle    LIKE :recherche')
+            ->setParameter('recherche', '%'.$recherche.'%')
+            ->getQuery()
+            ->getResult();
+
+        return $produits;
+    }
+
 //    /**
 //     * @return Produit[] Returns an array of Produit objects
 //     */

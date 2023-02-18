@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\LigneCommande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @extends ServiceEntityRepository<LigneCommande>
@@ -37,6 +38,19 @@ class LigneCommandeRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findTopOrdered(): array
+    {
+        return $this->createQueryBuilder('l')
+        ->select('p.id, p.libelle, p.prix, p.visuel, c.id, sum(l.quantite) as quantite')
+        ->join('l.produit', 'p')
+        ->join('p.categorie', 'c')
+        ->groupBy('p.id')
+        ->orderBy('quantite', 'DESC')
+        ->setMaxResults(3)
+        ->getQuery()
+        ->getResult();
     }
 
 //    /**

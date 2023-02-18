@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\LigneCommande;
+use App\Extension\DeviseExtension;
 use App\Service\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +31,17 @@ class DefaultController extends AbstractController
         ]);
     }
 
+    public function devise(DeviseExtension $deviseExtension, string $devise): Response
+    {
+        $devise = $deviseExtension->setDevise($devise);
+
+        return $this->render('devise.html.twig', [
+            'controller_name' => 'DefaultController',
+            'devise' => $devise,
+        ]);
+
+    }
+
     public function navBar(PanierService $panier): Response
     {
         $nbProduit = $panier->getNbProduits();
@@ -36,6 +49,16 @@ class DefaultController extends AbstractController
         return $this->render('navbarproduit.html.twig', [
             'controller_name' => 'DefaultController',
             'nbProduit' => $nbProduit,
+        ]);
+    }
+
+    public function mostSold()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository(LigneCommande::class)->findTopOrdered();
+    
+        return $this->render('mostSold.html.twig', [
+            'products' => $products,
         ]);
     }
 }

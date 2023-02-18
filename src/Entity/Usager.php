@@ -4,11 +4,13 @@ namespace App\Entity;
 
 use App\Repository\UsagerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UsagerRepository::class)
  */
-class Usager
+class Usager implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id

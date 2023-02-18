@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shop projet | Backoffice{% endblock %}
+
+{% block body %}
+<div class="w-full">
+  <table class="min-w-full">
+    <thead>
+      <tr>
+        <th class="px-4 py-2">ID</th>
+        <th class="px-4 py-2">Date</th>
+        <th class="px-4 py-2">Client</th>
+        <th class="px-4 py-2">Statut</th>
+        <th class="px-4 py-2">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for commande in commandes %}
+      <tr>
+        <td class="border px-4 py-2">{{ commande.id }}</td>
+        <td class="border px-4 py-2">{{ commande.dateCommande }}</td>
+        <td class="border px-4 py-2">{{ commande.usager.prenom }} {{ commande.usager.nom }}</td>
+        <td class="border px-4 py-2">{{ commande.statut }}</td>
+        {% if commande.statut == "Validée" %}
+            <td class="border px-4 py-2 text-center text-green-500 font-bold">La commande a été validée</td>
+        {% elseif commande.statut == "Refusée" %}
+            <td class="border px-4 py-2 text-center text-red-500 font-bold">La commande a été refusée</td>
+        {% else %}
+            <td class="border flex justify-center px-4 py-2">
+                <form method="POST" action="{{ path('backoffice_valide', {idCommande: commande.id}) }}">
+                    <button type="submit" class="m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        Accepter
+                    </button>
+                </form>
+                <form method="POST" action="{{ path('backoffice_refuse', {idCommande: commande.id}) }}">
+                    <button type="submit" class="m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Refuser
+                    </button>
+                </form>
+            </td>
+        {% endif %}
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

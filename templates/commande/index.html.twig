@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Shop projet | Commande{% endblock %}
+{% block title %}Shop projet | Commandes{% endblock %}
 
 {% block body %}
 
@@ -21,48 +21,36 @@
                 <!-- row 1 -->
                 {% for row in commandes %}
                     <tr>
-                        {% if row.commande.statut is same as("En attente de validation") %}
-                            <td class="text-red-500">
-                                {{row.commande.id}}
-                            </td>
-                        {% else %}
-                            <td>
-                                {{row.commande.id}}
-                            </td>
-                        {% endif %}
-                        {% if row.commande.statut is same as("En attente de validation") %}
-                            <td class="text-red-500">
-                                {{row.commande.dateCommande|date('d/m/Y H:i:s')}}
-                            </td>
-                        {% else %}
-                            <td>
-                                {{row.commande.dateCommande|date('d/m/Y H:i:s')}}
-                            </td>
-                        {% endif %}
-                        {% if row.commande.statut is same as("En attente de validation") %}
-                            <td class="text-red-500">
-                                {{row.nbProduits}}
-                            </td>
-                        {% else %}
-                            <td>
-                                {{row.nbProduits}}
-                            </td>
-                        {% endif %}
-                        {% if row.commande.statut is same as("En attente de validation") %}
-                            <td class="text-red-500">
-                                {{row.montant}} €
-                            </td>
-                        {% else %}
-                            <td>
-                                {{row.montant}} €
-                            </td>
-                        {% endif %}
+                        <td class="{% if row.commande.statut is same as("En attente de validation") %}text-yellow-500{% elseif row.commande.statut is same as ("Validée")%}text-green-500{% else %}text-red-500{% endif %}">
+                            {{row.commande.id}}
+                        </td>
+                        <td class="{% if row.commande.statut is same as("En attente de validation") %}text-yellow-500{% elseif row.commande.statut is same as ("Validée")%}text-green-500{% else %}text-red-500{% endif %}">
+                            {{row.commande.dateCommande|date('d/m/Y H:i:s')}}
+                        </td>
+                        <td class="{% if row.commande.statut is same as("En attente de validation") %}text-yellow-500{% elseif row.commande.statut is same as ("Validée")%}text-green-500{% else %}text-red-500{% endif %}">
+                            {{row.nbProduits}}
+                        </td>
+                        <td class="{% if row.commande.statut is same as("En attente de validation") %}text-yellow-500{% elseif row.commande.statut is same as ("Validée")%}text-green-500{% else %}text-red-500{% endif %}">
+                            {{row.montant}} €
+                        </td>
                         {% if row.commande.statut is same as("En attente de validation") %}
                         <td>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:cursor-progress text-red-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-yellow-500">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </td>
+                        {% elseif row.commande.statut is same as ("Validée")%}
+                            <td>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </td>
+                        {% else %}
+                            <td>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </td>
                         {% endif %}
                     </tr>
                 {% endfor %}

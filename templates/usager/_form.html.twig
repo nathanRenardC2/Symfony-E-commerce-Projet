@@ -1,4 +1,19 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'bg-gray-100 p-6 rounded-lg'}}) }}
+    <div class="mb-4">
+        {{ form_label(form.nom) }}
+        {{ form_widget(form.nom, {'attr': {'class': 'border border-gray-400 p-2 rounded-lg w-full'}}) }}
+    </div>
+    <div class="mb-4">
+        {{ form_label(form.prenom) }}
+        {{ form_widget(form.prenom, {'attr': {'class': 'border border-gray-400 p-2 rounded-lg w-full'}}) }}
+    </div>
+    <div class="mb-4">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email, {'attr': {'class': 'border border-gray-400 p-2 rounded-lg w-full'}}) }}
+    </div>
+    <div class="mb-4">
+        {{ form_label(form.password) }}
+        {{ form_widget(form.password, {'attr': {'class': 'border border-gray-400 p-2 rounded-lg w-full'}}) }}
+    </div>
+    <button class="btn w-full">Inscription</button>
 {{ form_end(form) }}

@@ -25,7 +25,7 @@ class PanierService {
         $this->prodRepo = $prodRepo;
         $this->session  = $session;
         // Récupération du panier en session s'il existe, init. à vide sinon
-        $this->panier =  $this->panier = $this->session->has(self::PANIER_SESSION) ? $this->session->get(self::PANIER_SESSION) : [];
+        $this->panier =  $this->session->has(self::PANIER_SESSION) ? $this->session->get(self::PANIER_SESSION) : [];
         $this->entityManager = $entityManager;
     }
     // getContenu renvoie le contenu du panier
@@ -99,30 +99,32 @@ class PanierService {
 
     public function panierToCommande(Usager $usager){
         $contenu = $this->getContenu();
-        if (count($contenu) != 0) {
-            $commande = new Commande();
-            $commande->setUsager($usager);
-            $date = new \DateTime();
-            $commande->setDateCommande($date->format('d M Y H:i:s'));
-            $commande->setStatut("En attente de validation");
-            $this->entityManager->persist($commande);
-    
-            foreach ($contenu as $element){
-                $ligneCommande = new LigneCommande();
-                $produit = $this->prodRepo->find($element["idProduit"]);
-                $ligneCommande->setCommande($commande);
-                $ligneCommande->setProduit($produit);
-                $ligneCommande->setQuantite($element["quantite"]);
-                $ligneCommande->setPrix($produit->getPrix());
-                $this->entityManager->persist($ligneCommande);
+        if($usager){
+            if (count($contenu) != 0) {
+                $commande = new Commande();
+                $commande->setUsager($usager);
+                $date = new \DateTime();
+                $commande->setDateCommande($date->format('d M Y H:i:s'));
+                $commande->setStatut("En attente de validation");
+                $this->entityManager->persist($commande);
+        
+                foreach ($contenu as $element){
+                    $ligneCommande = new LigneCommande();
+                    $produit = $this->prodRepo->find($element["idProduit"]);
+                    $ligneCommande->setCommande($commande);
+                    $ligneCommande->setProduit($produit);
+                    $ligneCommande->setQuantite($element["quantite"]);
+                    $ligneCommande->setPrix($produit->getPrix());
+                    $this->entityManager->persist($ligneCommande);
+                }
+        
+                $this->entityManager->flush();
+                $this->vider();
+        
+                return $commande;
             }
     
-            $this->entityManager->flush();
-            $this->vider();
-    
-            return $commande;
         }
-
         return null;
     }
 

@@ -15,9 +15,9 @@
                 <div>
                     <a href='{{path('panier_vider')}}' class="btn mr-10">Vider</a>
                     {% if listeProduit|length > 0 %}
-                        <a href='{{path('panier_validation')}}' class="btn mr-10">Commander</a>
+                       <a href="{% if is_granted('ROLE_CLIENT') %}{{ path('panier_validation') }}{% else %}{{ path('app_login') }}{% endif %}" class="btn mr-10">Commander</a>
                     {% else %}
-                        <a href='{{path('panier_validation')}}' class="btn mr-10" disabled>Commander</a>
+                        <a class="btn mr-10" disabled>Commander</a>
                     {% endif %}
                 </div>
             </div>

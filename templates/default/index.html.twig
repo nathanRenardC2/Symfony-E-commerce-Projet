@@ -3,34 +3,17 @@
 {% block title %}Shop projet | Accueil{% endblock %}
 
 {% block body %}
-<div class="hero bg-base-200">
-    <div class="drawer drawer">
-        <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content absolute hidden md:block">
-            <!-- Page content here -->
-            <label for="my-drawer-4" class="drawer-button btn ml-8 mt-5">
-                <div class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white">
-                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                    </svg>
-                    <span class="ml-3">Top ventes</span>
-                </div>
-            </label>
-        </div> 
-        <div class="drawer-side">
-            <label for="my-drawer-4" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-80 bg-base-100 text-base-content">
-            <!-- Sidebar content here -->
-            <li><a>Sidebar Item 1</a></li>
-            <li><a>Sidebar Item 2</a></li>
-            </ul>
-        </div>
-    </div>
+{{ render(controller('App\\Controller\\DefaultController::mostSold')) }}
+<div class="hero">
     <div class="hero-content text-center">
         <div class="max-w-md">
         <h1 class="text-5xl font-bold">Boutique en ligne</h1>
         <p class="py-6">vous pouvez accéder à la boutique et accéder à nos différents produits disponible !</p>
-        <button class="btn">Accéder</button>
+        <button class="btn">
+            <a href='{{ path('boutique') }}'>
+                Accéder
+            </a>
+        </button>
         </div>
     </div>
 </div>

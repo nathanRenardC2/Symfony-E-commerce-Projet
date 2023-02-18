@@ -23,7 +23,7 @@
       </trans-unit>
       <trans-unit id="rSMiX4_" resname="default.index.connexion">
         <source>default.index.connexion</source>
-        <target>Inscription / Connexion</target>
+        <target>Inscription</target>
       </trans-unit>
       <trans-unit id="jm6yIjV" resname="default.index.profil">
         <source>default.index.profil</source>

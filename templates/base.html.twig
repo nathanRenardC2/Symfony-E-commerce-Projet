@@ -15,14 +15,30 @@
         {% endblock %}
 
         {% block javascripts %}
+        <script>
+            const app = {
+                devise: {
+                    setDevise: function(devise) {
+                        fetch('/devise/set-devise/' + devise)
+                            .then(response => response.json())
+                            .then(data => {
+                                location.reload();
+                            });
+                    }
+                }
+            };
+        </script>
         {% endblock %}
     </head>
     <body>
+        {% set devise_courante = app.request.attributes.get('devise', 'EUR') %}
         {% include "navbar.html.twig" %}
-        <div class="h-screen flex justify-center">
+        <div class="h-screen flex justify-center relative">
             {% block body %}
+
             {% endblock %}
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
     </body>
 </html>
 

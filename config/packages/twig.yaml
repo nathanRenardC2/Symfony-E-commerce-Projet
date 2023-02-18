@@ -2,6 +2,8 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
         supported_locales: '%app.supported_locales%'
+        supported_devises: '%app.supported_devises%'
+    
 
 when@test:
     twig:

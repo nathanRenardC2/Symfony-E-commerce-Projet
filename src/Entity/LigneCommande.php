@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\LigneCommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Commande;
+use App\Entity\Produit;
 
 /**
  * @ORM\Entity(repositoryClass=LigneCommandeRepository::class)
@@ -24,13 +26,13 @@ class LigneCommande
      * @ORM\ManyToOne(targetEntity="App\Entity\Commande", inversedBy="lignesCommande")
      * @ORM\Id
      */
-    private $commande;
+    private ?Commande $commande;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Produit", inversedBy="lignesCommande")
      * @ORM\Id
      */
-    private $produit;
+    private ?Produit $produit;
 
 
     public function getQuantite(): ?int

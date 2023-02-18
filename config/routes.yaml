@@ -30,6 +30,14 @@ rayon:
    defaults:
       _locale: fr
 
+recherche:
+   path: /{_locale}/recherche
+   controller: App\Controller\BoutiqueController::rechercheProduit
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
 ajouterProduit: 
    path: /{_locale}/ajouterProduit/?{idProduit}
    controller: App\Controller\BoutiqueController::ajouterProduit
@@ -79,7 +87,7 @@ panier_vider:
       _locale: fr
 
 usager_accueil:
-   path: /{_locale}/usager
+   path: /{_locale}/usager/accueil
    controller: App\Controller\UsagerController::index
    requirements: 
       _locale: '%app.supported_locales%'
@@ -101,3 +109,38 @@ panier_validation:
       _locale: '%app.supported_locales%'
    defaults:
       _locale: fr
+
+commande:
+   path: /{_locale}/usager/commandes
+   controller: App\Controller\CommandeController::index
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
+backoffice_index:
+   path: /{_locale}/backoffice
+   controller: App\Controller\BackofficeController::index
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
+
+backoffice_valide:
+    path: /{_locale}/backoffice/valide/{idCommande}
+    controller: App\Controller\BackofficeController::valide
+    methods: [GET, POST]
+    requirements:
+        _locale: '%app.supported_locales%'
+    defaults:
+        _locale: fr
+
+
+backoffice_refuse:
+    path: /{_locale}/backoffice/refuse/{idCommande}
+    controller: App\Controller\BackofficeController::refuse
+    methods: [GET, POST]
+    requirements:
+        _locale: '%app.supported_locales%'
+    defaults:
+        _locale: fr
