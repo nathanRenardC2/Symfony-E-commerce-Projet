@@ -6,7 +6,12 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Commande;
 use App\Entity\LigneCommande;
+use App\Repository\CategorieRepository;
+use App\Repository\ProduitRepository;
+use App\Entity\Produit;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Service\PanierService;
 
 class BackofficeController extends AbstractController
 {

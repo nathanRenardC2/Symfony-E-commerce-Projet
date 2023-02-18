@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shop projet | Ajouter un produit{% endblock %}
+
+{% block body %}
+    <div class="flex flex-col jsutify-center items-center">
+        <h1 class="text-3xl m-5">Ajouter un produit</h1>
+
+        {{ include('produit/_form.html.twig') }}
+    </div>
+{% endblock %}

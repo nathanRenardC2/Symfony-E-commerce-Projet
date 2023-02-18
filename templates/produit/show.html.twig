@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shop Projet | Backoffice {{produit.libelle}}{% endblock %}
+
+{% block body %}
+    <div class="w-screen">
+        <div class="flex justify-between px-10 py-5">
+            <h2 class="card-title">Détails du produit</h2>
+            {{ include('produit/_delete_form.html.twig') }}
+        </div>
+        <div class="card-body">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Id</th>
+                    <td>{{ produit.id }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Visuel</th>
+                    <td>{{ produit.visuel }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Libellé</th>
+                    <td>{{ produit.libelle }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Texte</th>
+                    <td>{{ produit.texte }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Prix</th>
+                    <td>{{ produit.prix }}€</td>
+                </tr>
+            </tbody>
+        </table>
+{% endblock %}

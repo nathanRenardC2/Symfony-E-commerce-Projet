@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SHop projet | Liste des catégories{% endblock %}
+
+{% block body %}
+<div class="w-screen">
+<div class="flex justify-between items-center bg-gray-200 p-4">
+<a class="btn" href="{{ path('app_categorie_new') }}">Ajouter une catégorie</a>
+</div>
+<table class="table w-full">
+<thead>
+<tr>
+<th>Id</th>
+<th>Libellé</th>
+<th>Visuel</th>
+<th>Texte</th>
+</tr>
+</thead>
+<tbody>
+{% for categorie in categories %}
+<tr>
+<td>{{ categorie.id }}</td>
+<td>
+    <img src="{{ asset(categorie.visuel) }}" alt="{{ categorie.libelle }}" class="w-20"> 
+</td>
+<td>{{ categorie.libelle }}</td>
+<td>{{ categorie.texte }}</td>
+</tr>
+{% else %}
+<tr>
+<td colspan="5">Aucune catégorie trouvée</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}
+
+
+
+

@@ -4,15 +4,20 @@
 
 {% block body %}
 
-<div class="w-screen flex flex-col md:flex-row items-center md:justify-center">
+<div class="w-screen grid grid-cols-1 md:grid-cols-5">
     {% for categorie in categories %}
-        <div class="card w-56 bg-base-100 shadow-xl bg-cover transform transition duration-75 hover:scale-110 m-10">
-            <figure><img src="{{asset(categorie.visuel)}}" alt="" /></figure>
+        <div class="card h-2/3 w-56 bg-base-100 shadow-xl bg-cover transform transition duration-75 hover:scale-110 m-10">
+            <figure><img class="h-56" src="{{asset(categorie.visuel)}}" alt="" /></figure>
             <div class="card-body">
                 <h2 class="card-title">{{categorie.libelle}}</h2>
                 <p class="mb-3">{{categorie.texte}}</p>
                 <div class="card-actions justify-end">
-                <a href="{{ path('rayon', {'idCategorie' : categorie.id})}}" class="btn">Voir</a>
+                <div class="flex">
+                    {% if is_granted('ROLE_ADMIN')%}
+                        <a href="{{ path('app_categorie_delete', {'id': categorie.id}) }}" class="btn p-2 mr-5">Supprimer</a>
+                    {% endif %}
+                    <a href="{{ path('rayon', {'idCategorie' : categorie.id})}}" class="btn p-2">Voir</a>
+                </div>
                 </div>
             </div>
         </div>

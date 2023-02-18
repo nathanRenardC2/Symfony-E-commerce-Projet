@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shop projet | Liste des produits{% endblock %}
+
+{% block body %}
+    <div class="w-screen">
+        <div class="flex justify-between items-center bg-gray-200 p-4">
+            <a class="btn" href="{{ path('app_produit_new') }}">Ajouter un produit</a>
+        </div>
+        <table class="table w-full">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Visuel</th>
+                    <th>Libelle</th>
+                    <th>Texte</th>
+                    <th>Prix</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for produit in produits %}
+                <tr>
+                    <td>{{ produit.id }}</td>
+                    <td>
+                        <img src="{{ asset(produit.visuel) }}" alt="{{ produit.libelle }}" class="w-20"> 
+                    </td>
+                    <td>{{ produit.libelle }}</td>
+                    <td>{{ produit.texte }}</td>
+                    <td>{{ produit.prix }}€</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

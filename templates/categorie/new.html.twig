@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Categorie{% endblock %}
+
+{% block body %}
+    <div class="flex flex-col jsutify-center items-center">
+        <h1 class="text-3xl m-5">Ajouter une catégorie</h1>
+
+        {{ include('categorie/_form.html.twig') }}
+    </div>
+
+{% endblock %}

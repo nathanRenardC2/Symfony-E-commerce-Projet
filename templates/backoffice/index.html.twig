@@ -4,6 +4,17 @@
 
 {% block body %}
 <div class="w-full">
+  <div class="flex justify-start items-center bg-gray-200 p-4">
+      <div class="font-semibold">
+        <a href="{{ path('app_produit_index') }}" class="btn mr-10">Liste des produits</a>
+      </div>
+      <div>
+        <a href="{{ path('app_categorie_index') }}" class="btn">Liste des catégories</a>
+      </div>
+  </div>
+  <div>
+    <h1 class="text-3xl text-center font-bold m-5">Liste des commandes</h1>
+  </div>
   <table class="min-w-full">
     <thead>
       <tr>
