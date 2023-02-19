@@ -144,3 +144,11 @@ backoffice_refuse:
         _locale: '%app.supported_locales%'
     defaults:
         _locale: fr
+
+sendEmail:
+   path: /{_locale}/sendEmail
+   controller: App\Controller\ContactController::sendEmail
+   requirements: 
+      _locale: '%app.supported_locales%'
+   defaults:
+      _locale: fr
