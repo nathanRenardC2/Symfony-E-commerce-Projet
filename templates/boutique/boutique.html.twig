@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<div class="w-screen grid grid-cols-1 md:grid-cols-5">
+<div class="w-screen content-center justify-center grid grid-cols-1 md:grid-cols-auto md:grid-flow-col-dense mt-10">
     {% for categorie in categories %}
         <div class="card h-2/3 w-56 bg-base-100 shadow-xl bg-cover transform transition duration-75 hover:scale-110 m-10">
             <figure><img class="h-56" src="{{asset(categorie.visuel)}}" alt="" /></figure>

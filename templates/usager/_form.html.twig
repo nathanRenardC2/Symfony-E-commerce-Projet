@@ -15,5 +15,9 @@
         {{ form_label(form.password) }}
         {{ form_widget(form.password, {'attr': {'class': 'border border-gray-400 p-2 rounded-lg w-full'}}) }}
     </div>
+    <div class="mb-4">
+        {{ form_label(form.captcha) }}
+        {{ form_widget(form.captcha, {'attr': {'class': 'border border-gray-400 p-2 rounded-lg w-full'}}) }}
+    </div>
     <button class="btn w-full">Inscription</button>
 {{ form_end(form) }}

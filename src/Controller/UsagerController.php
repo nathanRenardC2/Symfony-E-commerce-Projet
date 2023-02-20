@@ -13,6 +13,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 /**
  * @Route("/{_locale}/usager", requirements={"_locale"="%app.supported_locales%"},
@@ -40,6 +41,11 @@ class UsagerController extends AbstractController
             ->add('prenom', TextType::class)
             ->add('email', EmailType::class)
             ->add('password', PasswordType::class)
+            ->add('captcha', CaptchaType::class, array(
+                'width' => 200,
+                'height' => 50,
+                'length' => 6,
+            ))
             ->getForm();
         $form->handleRequest($request);
 
